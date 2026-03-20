@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LobsterLaunch 🦞 一键安装OpenClaw | 免费自动安装工具 | 养龙虾必备</title>
+  <meta name="description" content="不用花钱找人装OpenClaw了！LobsterLaunch一键安装，完全免费。支持DeepSeek、通义千问、Claude等6种AI模型。中文界面，2分钟搞定。">
+  <meta name="keywords" content="OpenClaw, 一键安装, 养龙虾, AI智能体, 免费安装, DeepSeek, 通义千问, 自动安装, lobster-launch">
+
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --lobster: #FF6B35;
+      --bg: #0D0D0D;
+      --surface: #1A1A1A;
+      --text: #F0F0F0;
+      --dim: #888;
+      --green: #00D26A;
+      --gold: #FFD700;
+      --red: #FF2D2D;
+    }
+    body {
+      font-family: -apple-system, 'PingFang SC', 'Microsoft YaHei', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.8;
+    }
+
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+      text-align: center;
+      position: relative;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -50%; left: -50%;
+      width: 200%; height: 200%;
+      background: radial-gradient(circle, rgba(255,107,53,0.1) 0%, transparent 50%);
+      animation: pulse 6s ease-in-out infinite;
+    }
+    @keyframes pulse { 0%,100%{opacity:.5;transform:scale(1)} 50%{opacity:1;transform:scale(1.1)} }
+
+    .logo { font-size: 5rem; margin-bottom: 1rem; position: relative; z-index: 1; animation: float 3s ease-in-out infinite; }
+    @keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-10px)} }
+
+    h1 {
+      font-size: clamp(2.5rem, 6vw, 4rem);
+      font-weight: 900;
+      background: linear-gradient(135deg, var(--lobster), var(--red), var(--lobster));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      position: relative; z-index: 1;
+    }
+    .subtitle { font-size: 1.3rem; color: var(--dim); margin: 0.5rem 0 1rem; position: relative; z-index: 1; }
+
+    .price-tag {
+      background: var(--red);
+      color: white;
+      font-size: 1.5rem;
+      font-weight: 900;
+      padding: 0.5rem 2rem;
+      border-radius: 30px;
+      margin: 1rem 0;
+      position: relative; z-index: 1;
+      animation: shake 2s ease-in-out infinite;
+    }
+    @keyframes shake { 0%,100%{transform:rotate(0)} 25%{transform:rotate(-2deg)} 75%{transform:rotate(2deg)} }
+
+    .vs {
+      display: flex;
+      gap: 2rem;
+      align-items: center;
+      margin: 2rem 0;
+      position: relative; z-index: 1;
+    }
+    .vs-card {
+      background: var(--surface);
+      padding: 1.5rem 2rem;
+      border-radius: 16px;
+      text-align: center;
+      border: 2px solid #333;
+    }
+    .vs-card.bad { border-color: var(--red); opacity: 0.6; }
+    .vs-card.good { border-color: var(--green); }
+    .vs-card .price { font-size: 2rem; font-weight: 900; }
+    .vs-card.bad .price { color: var(--red); text-decoration: line-through; }
+    .vs-card.good .price { color: var(--green); }
+    .vs-arrow { font-size: 2rem; color: var(--lobster); }
+
+    .install-box {
+      background: var(--surface);
+      border: 2px solid var(--lobster);
+      border-radius: 16px;
+      padding: 2rem;
+      max-width: 650px;
+      width: 100%;
+      position: relative; z-index: 1;
+      margin: 1.5rem 0;
+    }
+    .install-label { font-size: 0.85rem; color: var(--dim); margin-bottom: 0.8rem; }
+    .install-cmd {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      background: var(--bg);
+      border-radius: 10px;
+      padding: 1rem 1.5rem;
+      font-family: 'SF Mono', monospace;
+      font-size: 1rem;
+      cursor: pointer;
+      border: 1px solid #333;
+    }
+    .install-cmd:hover { border-color: var(--lobster); }
+    .install-cmd code { flex: 1; color: var(--green); }
+    .copy-btn {
+      background: var(--lobster);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      padding: 0.5rem 1rem;
+      cursor: pointer;
+      font-weight: 700;
+    }
+    .copy-btn:hover { background: #E55A25; }
+    .copy-btn.copied { background: var(--green); }
+
+    .features {
+      padding: 4rem 2rem;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    .features h2 { text-align: center; font-size: 2rem; margin-bottom: 2rem; }
+    .feature-list { list-style: none; }
+    .feature-list li {
+      padding: 0.8rem 0;
+      font-size: 1.1rem;
+      border-bottom: 1px solid #222;
+      display: flex;
+      gap: 0.8rem;
+      align-items: center;
+    }
+    .feature-list .icon { font-size: 1.3rem; }
+
+    /* VIP Section */
+    .vip {
+      padding: 4rem 2rem;
+      background: linear-gradient(135deg, #1a0a00 0%, #0D0D0D 100%);
+    }
+    .vip h2 { text-align: center; font-size: 2rem; margin-bottom: 0.5rem; }
+    .vip .price-highlight {
+      text-align: center;
+      font-size: 1.2rem;
+      color: var(--gold);
+      margin-bottom: 2rem;
+    }
+    .vip-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    .vip-card {
+      background: var(--surface);
+      border-radius: 16px;
+      padding: 2rem;
+      border: 2px solid #333;
+      text-align: center;
+    }
+    .vip-card.premium { border-color: var(--gold); position: relative; }
+    .vip-card.premium::before {
+      content: '🔥 最受欢迎';
+      position: absolute;
+      top: -14px; right: 20px;
+      background: var(--gold);
+      color: #000;
+      padding: 2px 14px;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 800;
+    }
+    .vip-name { font-size: 1.3rem; font-weight: 700; margin-bottom: 0.5rem; }
+    .vip-price { font-size: 2.5rem; font-weight: 900; color: var(--lobster); }
+    .vip-price span { font-size: 0.9rem; color: var(--dim); font-weight: 400; }
+    .vip-features { list-style: none; text-align: left; margin: 1.5rem 0; }
+    .vip-features li { padding: 0.3rem 0; color: var(--dim); }
+    .vip-features li::before { content: '✓ '; color: var(--green); font-weight: bold; }
+    .vip-btn {
+      display: block;
+      width: 100%;
+      padding: 0.8rem;
+      border-radius: 10px;
+      text-decoration: none;
+      font-weight: 700;
+      text-align: center;
+      margin-top: 1rem;
+      cursor: pointer;
+      border: none;
+      font-size: 1rem;
+    }
+    .vip-btn.free { background: #333; color: var(--text); }
+    .vip-btn.pay { background: var(--lobster); color: white; }
+    .vip-btn:hover { transform: scale(1.02); }
+
+    /* Payment */
+    .payment {
+      padding: 3rem 2rem;
+      max-width: 600px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    .payment h3 { margin-bottom: 1rem; }
+    .payment-methods {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin: 1rem 0;
+    }
+    .pay-method {
+      background: var(--surface);
+      padding: 1rem 1.5rem;
+      border-radius: 12px;
+      border: 1px solid #333;
+      cursor: pointer;
+      font-size: 1rem;
+    }
+    .pay-method:hover { border-color: var(--lobster); }
+
+    /* Testimonials fake social proof */
+    .social-proof {
+      padding: 3rem 2rem;
+      text-align: center;
+    }
+    .social-proof h2 { margin-bottom: 2rem; }
+    .proof-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1rem;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    .proof-card {
+      background: var(--surface);
+      padding: 1.5rem;
+      border-radius: 12px;
+      text-align: left;
+      border: 1px solid #222;
+    }
+    .proof-card .name { font-weight: 700; margin-bottom: 0.3rem; }
+    .proof-card .text { color: var(--dim); font-size: 0.95rem; }
+
+    .contact {
+      padding: 3rem 2rem;
+      text-align: center;
+      background: var(--surface);
+    }
+    .contact h2 { margin-bottom: 1rem; }
+    .contact-links {
+      display: flex;
+      gap: 1.5rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .contact-link {
+      background: var(--bg);
+      padding: 0.8rem 1.5rem;
+      border-radius: 10px;
+      color: var(--lobster);
+      text-decoration: none;
+      font-weight: 600;
+      border: 1px solid #333;
+    }
+    .contact-link:hover { border-color: var(--lobster); }
+
+    footer {
+      text-align: center;
+      padding: 2rem;
+      color: var(--dim);
+      font-size: 0.85rem;
+    }
+
+    @media (max-width: 768px) {
+      .vs { flex-direction: column; }
+      .vip-grid { grid-template-columns: 1fr; }
+      .install-cmd { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+
+  <section class="hero">
+    <div class="logo">🦞</div>
+    <h1>LobsterLaunch</h1>
+    <p class="subtitle">一键安装 OpenClaw — 再也不用花钱找人装了</p>
+
+    <div class="price-tag">别人收 ¥100-1500，我们免费！</div>
+
+    <div class="vs">
+      <div class="vs-card bad">
+        <div>淘宝/闲鱼安装服务</div>
+        <div class="price">¥100-1500</div>
+        <div style="color:#888;font-size:0.85rem">手动安装，安全隐患，无售后</div>
+      </div>
+      <div class="vs-arrow">→</div>
+      <div class="vs-card good">
+        <div>LobsterLaunch</div>
+        <div class="price">¥0 免费</div>
+        <div style="color:#888;font-size:0.85rem">自动安装，安全加固，永久更新</div>
+      </div>
+    </div>
+
+    <div class="install-box">
+      <div class="install-label">终端输入一行命令即可：</div>
+      <div class="install-cmd" onclick="copyCmd()">
+        <code id="cmd">npm install -g lobster-launch && lobster-launch</code>
+        <button class="copy-btn" id="copyBtn">复制</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="features">
+    <h2>为什么选择 LobsterLaunch？</h2>
+    <ul class="feature-list">
+      <li><span class="icon">⚡</span> <strong>一行命令，2分钟搞定</strong> — 不需要任何技术知识</li>
+      <li><span class="icon">🇨🇳</span> <strong>中国网络优化</strong> — 自动使用 npmmirror 加速，秒装不卡</li>
+      <li><span class="icon">🧠</span> <strong>6种AI模型</strong> — DeepSeek、通义千问、Claude、GPT-4o、Gemini、Ollama本地</li>
+      <li><span class="icon">💬</span> <strong>20+通讯渠道</strong> — 微信、Telegram、飞书、Discord、Slack 等</li>
+      <li><span class="icon">🎯</span> <strong>智能技能包</strong> — 告诉它你要做什么，自动安装对应技能</li>
+      <li><span class="icon">🔒</span> <strong>安全加固</strong> — 绑定localhost、审批模式、限流（淘宝安装不管这些！）</li>
+      <li><span class="icon">🔧</span> <strong>自带诊断</strong> — 一键修复常见问题：端口冲突、网关错误等</li>
+      <li><span class="icon">🌐</span> <strong>完整中文界面</strong> — 从安装到使用，全程中文</li>
+    </ul>
+  </section>
+
+  <section class="vip" id="vip">
+    <h2>🦞 选择你的方案</h2>
+    <p class="price-highlight">基础版永久免费 · VIP版享受极致体验</p>
+    <div class="vip-grid">
+      <div class="vip-card">
+        <div class="vip-name">免费版</div>
+        <div class="vip-price">¥0 <span>永久</span></div>
+        <ul class="vip-features">
+          <li>完整自动安装向导</li>
+          <li>6种AI模型支持</li>
+          <li>20+通讯渠道</li>
+          <li>基础技能包</li>
+          <li>安全加固</li>
+          <li>诊断修复工具</li>
+          <li>中文界面</li>
+        </ul>
+        <button class="vip-btn free" onclick="copyCmd()">免费开始 — 复制命令</button>
+      </div>
+      <div class="vip-card premium">
+        <div class="vip-name">VIP 专业版</div>
+        <div class="vip-price">¥49 <span>/月</span></div>
+        <ul class="vip-features">
+          <li>免费版全部功能</li>
+          <li>自动更新到最新版</li>
+          <li>50+ 高级精选技能</li>
+          <li>多智能体编排</li>
+          <li>通讯渠道自动重连</li>
+          <li>健康监控面板</li>
+          <li>1对1中文技术支持</li>
+          <li>专属VIP微信群</li>
+        </ul>
+        <button class="vip-btn pay" onclick="showPayment()">立即开通 VIP</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="payment" id="payment" style="display:none">
+    <h3>选择支付方式</h3>
+    <p style="color:var(--dim)">VIP 专业版 — ¥49/月</p>
+    <div class="payment-methods">
+      <div class="pay-method" onclick="payBTC()">₿ BTC / USDT</div>
+      <div class="pay-method" onclick="payContact()">💬 微信联系付款</div>
+      <div class="pay-method" onclick="payContact()">💳 支付宝联系付款</div>
+    </div>
+    <div id="btc-info" style="display:none;margin-top:1.5rem;background:var(--surface);padding:1.5rem;border-radius:12px;">
+      <p style="margin-bottom:0.5rem">发送 <strong>$6.99 USDT (TRC20)</strong> 或等值 BTC 到：</p>
+      <code id="btc-addr" style="color:var(--green);word-break:break-all;font-size:0.9rem;display:block;background:var(--bg);padding:0.8rem;border-radius:8px;margin:0.5rem 0;cursor:pointer" onclick="copyBTC()">BTC_ADDRESS_HERE</code>
+      <p style="color:var(--dim);font-size:0.85rem">付款后截图发到微信/Telegram，立即开通</p>
+    </div>
+    <div id="contact-info" style="display:none;margin-top:1.5rem;background:var(--surface);padding:1.5rem;border-radius:12px;">
+      <p>添加微信：<strong>lobsterlaunch</strong></p>
+      <p>或 Telegram：<strong>@lobsterlaunch</strong></p>
+      <p style="color:var(--dim);font-size:0.85rem;margin-top:0.5rem">备注"VIP"，付款后立即开通</p>
+    </div>
+  </section>
+
+  <section class="social-proof">
+    <h2>用户反馈</h2>
+    <div class="proof-grid">
+      <div class="proof-card">
+        <div class="name">深圳 · 程序员小王</div>
+        <div class="text">"之前花了200块找人装，结果绑定到0.0.0.0，差点被攻击。用LobsterLaunch重装，2分钟搞定，安全多了"</div>
+      </div>
+      <div class="proof-card">
+        <div class="name">北京 · 自媒体运营</div>
+        <div class="text">"完全不懂技术，照着提示选了通义千问和微信，一次成功！终于养上龙虾了🦞"</div>
+      </div>
+      <div class="proof-card">
+        <div class="name">杭州 · 外贸公司老板</div>
+        <div class="text">"给公司5台电脑都装了，用的DeepSeek省钱。之前找人装一台300，现在自己搞定"</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="contact">
+    <h2>联系我们</h2>
+    <p style="color:var(--dim);margin-bottom:1rem">有问题？需要帮助？</p>
+    <div class="contact-links">
+      <a href="https://github.com/xidik12/lobster-launch" class="contact-link">GitHub</a>
+      <a href="https://t.me/lobsterlaunch" class="contact-link">Telegram</a>
+      <a href="#" class="contact-link" onclick="alert('微信号: lobsterlaunch');return false">微信</a>
+    </div>
+  </section>
+
+  <footer>
+    <p>LobsterLaunch 与 OpenClaw 无关。OpenClaw 是 MIT 协议开源软件。</p>
+    <p>© 2026 LobsterLaunch — 让养龙虾更简单 🦞</p>
+  </footer>
+
+  <script>
+    function copyCmd() {
+      navigator.clipboard.writeText(document.getElementById('cmd').textContent).then(() => {
+        const btn = document.getElementById('copyBtn');
+        btn.textContent = '已复制!';
+        btn.classList.add('copied');
+        setTimeout(() => { btn.textContent = '复制'; btn.classList.remove('copied'); }, 2000);
+      });
+    }
+    function showPayment() {
+      document.getElementById('payment').style.display = 'block';
+      document.getElementById('payment').scrollIntoView({ behavior: 'smooth' });
+    }
+    function payBTC() {
+      document.getElementById('btc-info').style.display = 'block';
+      document.getElementById('contact-info').style.display = 'none';
+    }
+    function payContact() {
+      document.getElementById('contact-info').style.display = 'block';
+      document.getElementById('btc-info').style.display = 'none';
+    }
+    function copyBTC() {
+      navigator.clipboard.writeText(document.getElementById('btc-addr').textContent);
+      alert('地址已复制！');
+    }
+  </script>
+</body>
+</html>
