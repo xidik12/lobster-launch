@@ -1,11 +1,11 @@
 {
   "name": "lobster-launch",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "One-click OpenClaw auto-setup. Install, configure, and launch OpenClaw in under 2 minutes.",
   "main": "src/index.js",
   "bin": {
-    "lobster-launch": "./bin/lobster-launch.js",
-    "ll": "./bin/lobster-launch.js"
+    "lobster-launch": "bin/lobster-launch.js",
+    "ll": "bin/lobster-launch.js"
   },
   "type": "module",
   "scripts": {
