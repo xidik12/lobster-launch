@@ -1,0 +1,93 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="420" viewBox="0 0 1200 420"
+     role="img" aria-labelledby="wfTitle wfDesc" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', sans-serif">
+  <title id="wfTitle">How LobsterLaunch works</title>
+  <desc id="wfDesc">Five wizard questions feed the LobsterLaunch engine, which automatically installs Node.js 24, OpenClaw, the gateway, your AI model, skill bundles, messaging channels, and security hardening, then opens the dashboard.</desc>
+
+  <defs>
+    <linearGradient id="wfLobster" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#FF6B35"/>
+      <stop offset="1" stop-color="#FF2D2D"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1200" height="420" rx="16" fill="#0D0D0D"/>
+
+  <!-- column headings -->
+  <text x="56" y="52" font-size="15" font-weight="700" fill="#FF6B35" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">YOU ANSWER · 你回答</text>
+  <text x="1144" y="52" text-anchor="end" font-size="15" font-weight="700" fill="#00D26A" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">IT AUTOMATES · 自动完成</text>
+
+  <!-- LEFT: 5 questions -->
+  <g font-size="15" fill="#E8EAED">
+    <g>
+      <rect x="56" y="78" width="300" height="46" rx="9" fill="#16181A" stroke="#2B2E31"/>
+      <text x="74" y="106"><tspan fill="#FF6B35" font-weight="700" font-family="ui-monospace, monospace">1</tspan><tspan dx="14"> System check</tspan></text>
+    </g>
+    <g>
+      <rect x="56" y="132" width="300" height="46" rx="9" fill="#16181A" stroke="#2B2E31"/>
+      <text x="74" y="160"><tspan fill="#FF6B35" font-weight="700" font-family="ui-monospace, monospace">2</tspan><tspan dx="14"> Pick AI model</tspan></text>
+    </g>
+    <g>
+      <rect x="56" y="186" width="300" height="46" rx="9" fill="#16181A" stroke="#2B2E31"/>
+      <text x="74" y="214"><tspan fill="#FF6B35" font-weight="700" font-family="ui-monospace, monospace">3</tspan><tspan dx="14"> Choose channels</tspan></text>
+    </g>
+    <g>
+      <rect x="56" y="240" width="300" height="46" rx="9" fill="#16181A" stroke="#2B2E31"/>
+      <text x="74" y="268"><tspan fill="#FF6B35" font-weight="700" font-family="ui-monospace, monospace">4</tspan><tspan dx="14"> Choose use case</tspan></text>
+    </g>
+    <g>
+      <rect x="56" y="294" width="300" height="46" rx="9" fill="#16181A" stroke="#2B2E31"/>
+      <text x="74" y="322"><tspan fill="#FF6B35" font-weight="700" font-family="ui-monospace, monospace">5</tspan><tspan dx="14"> Enable security</tspan></text>
+    </g>
+  </g>
+
+  <!-- CENTER: engine -->
+  <g>
+    <rect x="470" y="150" width="260" height="120" rx="16" fill="url(#wfLobster)"/>
+    <text x="600" y="200" text-anchor="middle" font-size="34">🦞</text>
+    <text x="600" y="236" text-anchor="middle" font-size="19" font-weight="800" fill="#FFFFFF">LobsterLaunch</text>
+    <text x="600" y="257" text-anchor="middle" font-size="13" fill="#FFE9DF" font-family="ui-monospace, monospace">under 2 min · 不到 2 分钟</text>
+  </g>
+
+  <!-- connectors left->engine -->
+  <g stroke="#3A3E42" stroke-width="1.5" fill="none">
+    <path d="M356 101 C 420 101, 430 190, 468 190"/>
+    <path d="M356 155 C 420 155, 435 198, 468 198"/>
+    <path d="M356 209 C 430 209, 440 210, 468 210"/>
+    <path d="M356 263 C 430 263, 440 222, 468 222"/>
+    <path d="M356 317 C 420 317, 435 230, 468 230"/>
+  </g>
+  <!-- connector engine->right -->
+  <path d="M730 210 C 770 210, 780 210, 812 210" stroke="#3A3E42" stroke-width="1.5" fill="none"/>
+  <path d="M806 204 L 818 210 L 806 216 Z" fill="#3A3E42"/>
+
+  <!-- RIGHT: 8 automated outputs -->
+  <g font-size="14" fill="#C9CDD2">
+    <g>
+      <rect x="832" y="70" width="312" height="40" rx="9" fill="#101A15" stroke="#1E3A2B"/>
+      <text x="850" y="95"><tspan fill="#00D26A" font-weight="700">✓</tspan><tspan dx="12"> Node.js 24 via nvm</tspan></text>
+    </g>
+    <g>
+      <rect x="832" y="116" width="312" height="40" rx="9" fill="#101A15" stroke="#1E3A2B"/>
+      <text x="850" y="141"><tspan fill="#00D26A" font-weight="700">✓</tspan><tspan dx="12"> OpenClaw installed globally</tspan></text>
+    </g>
+    <g>
+      <rect x="832" y="162" width="312" height="40" rx="9" fill="#101A15" stroke="#1E3A2B"/>
+      <text x="850" y="187"><tspan fill="#00D26A" font-weight="700">✓</tspan><tspan dx="12"> Gateway configured (local)</tspan></text>
+    </g>
+    <g>
+      <rect x="832" y="208" width="312" height="40" rx="9" fill="#101A15" stroke="#1E3A2B"/>
+      <text x="850" y="233"><tspan fill="#00D26A" font-weight="700">✓</tspan><tspan dx="12"> AI model + API key set</tspan></text>
+    </g>
+    <g>
+      <rect x="832" y="254" width="312" height="40" rx="9" fill="#101A15" stroke="#1E3A2B"/>
+      <text x="850" y="279"><tspan fill="#00D26A" font-weight="700">✓</tspan><tspan dx="12"> Skill bundles + channels</tspan></text>
+    </g>
+    <g>
+      <rect x="832" y="300" width="312" height="40" rx="9" fill="#101A15" stroke="#1E3A2B"/>
+      <text x="850" y="325"><tspan fill="#00D26A" font-weight="700">✓</tspan><tspan dx="12"> Security hardening + doctor</tspan></text>
+    </g>
+  </g>
+
+  <!-- footer note -->
+  <text x="600" y="392" text-anchor="middle" font-size="14" fill="#8A9099">Dashboard opens at http://127.0.0.1:18789/ — 控制面板自动打开</text>
+</svg>
